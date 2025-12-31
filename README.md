@@ -23,3 +23,5 @@ Things you may want to cover:
 
 * ...
 # rails-postgres-instagram-clone
+# rails-postgres-instagram-clone
+# rails-postgres-instagram-clone

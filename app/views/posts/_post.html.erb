@@ -1,14 +1,28 @@
-<div id="<%= dom_id post %>" class="w-full sm:w-auto my-5 space-y-5">
-  <div>
-    <%# <strong class="block font-medium mb-1">Title:</strong> %>
-    <%= post.title %>
-  </div>
-  <div>
-    <%# <strong class="block font-medium mb-1">Description:</strong> %>
-    <%= post.description %>
-  </div>
-  <div>
-    <%# <strong class="block font-medium mb-1">Keywords:</strong> %>
-    <%= post.keywords %>
-  </div>
-</div>
+<%= link_to post_path(post), class: "block my-5 p-5 text-center space-y-3 cursor-pointer rounded-md hover:shadow-lg transition mx-auto max-w-3xl" do %>
+  <!-- Post Title -->
+  <div class="font-bold text-2xl mb-2"><%= post.title %></div>
+
+  <!-- Post Description -->
+  <div class="text-gray-700 text-md mb-3"><%= post.description %></div>
+
+  <!-- Images Section -->
+  <% if post.images.attached? %>
+    <% images = post.images.limit(3) %> <!-- limit to 3 images -->
+    <div class="flex flex-wrap justify-center gap-3 my-3">
+      <% images.each_with_index do |image, index| %>
+        <% width_class = case images.size
+            when 1 then "w-full"
+            when 2 then "w-1/2"
+            else "w-1/3"
+          end %>
+        <%= image_tag image, class: "#{width_class} h-60 object-cover rounded-md" %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- Keywords -->
+  <div class="text-gray-500 text-sm"><%= post.keywords %></div>
+<% end %>
+
+<%# !https://www.youtube.com/watch?v=DhxLOC-9kW0 %>
+<%# ! TUTORIAL 48:17 %>

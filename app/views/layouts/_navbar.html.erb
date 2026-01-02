@@ -24,11 +24,12 @@
     Create Post
   </span>
 <% end %>
-
       <%= link_to root_path, class: "text-black no-underline" do %>
         <i class="far fa-user-circle text-xl"></i>
       <% end %>
-
+       <%= link_to home_about_path, class: "text-black no-underline" do %>
+       <i class="fas fa-info-circle text-xl"></i>
+      <% end %>
       <%= link_to root_path, id: "signout", class: "text-black no-underline" do %>
         <i class="fas fa-sign-out-alt text-xl"></i>
       <% end %>

@@ -2,25 +2,31 @@
   <div class="max-w-4xl mx-auto px-4 py-8">
     <!-- Footer Links -->
     <div class="flex flex-wrap justify-center gap-3 text-xs text-gray-500 mb-4">
-      <%= link_to "Meta", "#", class: "hover:underline" %>
-      <%= link_to "About", "#", class: "hover:underline" %>
-      <%= link_to "Blog", "#", class: "hover:underline" %>
-      <%= link_to "Jobs", "#", class: "hover:underline" %>
-      <%= link_to "Help", "#", class: "hover:underline" %>
-      <%= link_to "API", "#", class: "hover:underline" %>
-      <%= link_to "Privacy", "#", class: "hover:underline" %>
-      <%= link_to "Terms", "#", class: "hover:underline" %>
-      <%= link_to "Locations", "#", class: "hover:underline" %>
-      <%= link_to "Instagram Lite", "#", class: "hover:underline" %>
-      <%= link_to "Threads", "#", class: "hover:underline" %>
-      <%= link_to "Contact Uploading & Non-Users", "#", class: "hover:underline" %>
-      <%= link_to "Meta Verified", "#", class: "hover:underline" %>
+      <%= link_to 'Meta', '#', class: 'hover:underline' %>
+      <%= link_to 'About', '#', class: 'hover:underline' %>
+      <%= link_to 'Blog', '#', class: 'hover:underline' %>
+      <%= link_to 'Jobs', '#', class: 'hover:underline' %>
+      <%= link_to 'Help', '#', class: 'hover:underline' %>
+      <%= link_to 'API', '#', class: 'hover:underline' %>
+      <%= link_to 'Privacy', '#', class: 'hover:underline' %>
+      <%= link_to 'Terms', '#', class: 'hover:underline' %>
+      <%= link_to 'Locations', '#', class: 'hover:underline' %>
+      <%= link_to 'Instagram Lite', '#', class: 'hover:underline' %>
+      <%= link_to 'Threads', '#', class: 'hover:underline' %>
+      <%=
+        link_to 'Contact Uploading & Non-Users', '#', class: 'hover:underline'
+      %>
+      <%= link_to 'Meta Verified', '#', class: 'hover:underline' %>
     </div>
 
     <!-- Language Selector & Copyright -->
-    <div class="flex flex-wrap items-center justify-center gap-4 text-xs text-gray-500">
+    <div
+      class="flex flex-wrap items-center justify-center gap-4 text-xs text-gray-500"
+    >
       <div class="relative">
-        <select class="bg-transparent border-none text-gray-500 text-xs cursor-pointer focus:outline-none pr-6">
+        <select
+          class="bg-transparent border-none text-gray-500 text-xs cursor-pointer focus:outline-none pr-6"
+        >
           <option value="en">English</option>
           <option value="es">Español</option>
           <option value="fr">Français</option>
@@ -31,34 +37,42 @@
           <option value="zh">中文</option>
         </select>
       </div>
-      
+
       <span class="text-gray-500">
-        © <%= Time.current.year %> Instagram Clone by John Adrian 
+        ©
+        <%= Time.current.year %>
+        Instagram Clone by John Adrian
       </span>
     </div>
   </div>
 </footer>
 
 <!-- Mobile Bottom Navigation (Optional - shows on mobile devices) -->
-<nav class="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 z-50">
+<nav
+  class="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 z-50"
+>
   <div class="flex justify-around items-center h-14">
     <%= link_to root_path, class: "flex items-center justify-center flex-1 text-gray-800 hover:text-black" do %>
       <i class="fas fa-home text-2xl"></i>
     <% end %>
-    
+
     <%= link_to "#", class: "flex items-center justify-center flex-1 text-gray-800 hover:text-black" do %>
       <i class="fas fa-search text-2xl"></i>
     <% end %>
-    
+
     <%= link_to "#", class: "flex items-center justify-center flex-1 text-gray-800 hover:text-black" do %>
       <i class="far fa-plus-square text-2xl"></i>
     <% end %>
-    
+
     <%= link_to "#", class: "flex items-center justify-center flex-1 text-gray-800 hover:text-black relative" do %>
       <i class="far fa-heart text-2xl"></i>
-      <span class="absolute top-0 right-1/4 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+      <span
+        class="absolute top-0 right-1/4 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+      >
+        3
+      </span>
     <% end %>
-    
+
     <%= link_to "#", class: "flex items-center justify-center flex-1 text-gray-800 hover:text-black" do %>
       <i class="far fa-user-circle text-2xl"></i>
     <% end %>

@@ -6,6 +6,8 @@
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.18",
+    "prettier": "^2.2.1",
+    "prettier-plugin-erb": "^0.4.0",
     "tailwindcss": "^4.1.18"
   }
 }

@@ -70,7 +70,10 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# custom gem
 gem "image_processing", "~> 1.2"
 gem "mini_magick"
-
+# user auth
+gem "devise", "~> 4.9", ">= 4.9.4"
 gem "cssbundling-rails", "~> 1.4"

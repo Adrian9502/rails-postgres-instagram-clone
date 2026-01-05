@@ -25,9 +25,12 @@
 
   <body>
     <%= render 'layouts/navbar' %>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <main
+      class="container mx-auto mt-28 px-5 flex items-center justify-center min-h-screen"
+    >
       <%= yield %>
     </main>
+
     <%= render 'layouts/footer' %>
 
     <p class="notice"><%= notice %></p>

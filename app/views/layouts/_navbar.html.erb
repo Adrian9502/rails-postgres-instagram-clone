@@ -7,10 +7,12 @@
     <!-- Logo / Title -->
     <div class="logo shrink-0">
       <%=
-        link_to 'Instagram',
-                root_path,
-                class: 'no-underline text-black text-3xl',
-                style: "font-family: 'Billabong', cursive;"
+        link_to(
+          'Instagram',
+          user_signed_in? ? posts_path : new_user_session_path,
+          class: 'no-underline text-black text-3xl',
+          style: "font-family: 'Billabong', cursive;",
+        )
       %>
     </div>
 
@@ -55,7 +57,7 @@
         <% end %>
 
         <!-- Logout -->
-        <%= link_to destroy_user_session_path, method: :delete, class: "text-black relative group" do %>
+        <%= button_to destroy_user_session_path, method: :delete, data: { turbo: false }, class: "text-black relative group border-0 bg-transparent cursor-pointer p-0" do %>
           <i class="fas fa-sign-out-alt text-xl"></i>
           <span
             class="absolute bottom-full left-1/2 -translate-x-1/2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"

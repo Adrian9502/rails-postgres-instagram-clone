@@ -10,6 +10,9 @@ class User < ApplicationRecord
   # Callbacks
   before_create :randomize_id
 
+  has_many :comments
+
+
   private
 
   def randomize_id

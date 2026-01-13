@@ -39,8 +39,8 @@
 
         <!-- Caption -->
         <div class="text-sm mb-1 px-4 py-3">
-          <span class="font-semibold mr-2">
-            <%= post.user&.username || post.user&.email&.split('@')&.first %>
+          <span class="font-semibold mr-2 block">
+            <%= post.title %>
           </span>
           <span><%= truncate(post.description, length: 100) %></span>
         </div>

@@ -10,7 +10,7 @@
         >
           <%= link_to user_path(post.user), class: "flex items-center gap-3" do %>
             <div
-              class="w-8 h-8 rounded-full bg-linear-to-tr from-yellow-400 via-red-500 to-purple-500 p-0.5"
+              class="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-0.5"
             >
               <div
                 class="w-full h-full rounded-full bg-white flex items-center justify-center"
@@ -34,6 +34,18 @@
                 <%= time_ago_in_words(post.created_at) %> ago
               </p>
             </div>
+          <% end %>
+
+          <!-- Follow button in feed -->
+          <% if current_user != post.user %>
+            <% is_following = current_user.following.include?(post.user) %>
+            <%=
+              render partial: 'users/follow_button',
+                     locals: {
+                       user: post.user,
+                       is_following: is_following,
+                     }
+            %>
           <% end %>
         </div>
 

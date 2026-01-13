@@ -14,6 +14,14 @@ class User < ApplicationRecord
 
   has_many :likes
 
+  # Followers
+  has_many :follows_as_follower, class_name: "Follow", foreign_key: :follower_id
+  has_many :following, through: :follows_as_follower, source: :followed
+
+  # Followed by
+  has_many :follows_as_followed, class_name: "Follow", foreign_key: :followed_id
+  has_many :followers, through: :follows_as_followed, source: :follower
+
 validates :username, presence: true, uniqueness: true
   validates :bio, length: { maximum: 150 }
   private

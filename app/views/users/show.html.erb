@@ -5,29 +5,66 @@
   <div class="flex items-center space-x-6 mb-6">
     <!-- Avatar -->
     <div
-      class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center text-gray-400 text-3xl"
+      class="w-20 h-20 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-1 flex-shrink-0"
     >
-      <%= @user.username[0].upcase if @user.username.present? %>
+      <div
+        class="w-full h-full rounded-full bg-white flex items-center justify-center"
+      >
+        <span class="text-3xl font-semibold text-gray-700">
+          <%= @user.username[0].upcase if @user.username.present? %>
+        </span>
+      </div>
     </div>
 
-    <!-- Username & Email -->
-    <div>
-      <h2 class="text-2xl font-semibold text-gray-900">
-        <%= @user.username.present? ? @user.username : 'Username' %>
-      </h2>
-      <p class="text-sm text-gray-500">
-        <%= @user.email %>
-      </p>
-    </div>
+    <!-- Username & Actions -->
+    <div class="flex-1">
+      <div class="flex items-center gap-4 mb-3">
+        <h2 class="text-2xl font-semibold text-gray-900">
+          <%= @user.username.present? ? @user.username : 'Username' %>
+        </h2>
 
-    <!-- Edit Profile Button (only for current_user) -->
-    <% if current_user == @user %>
-      <div class="ml-auto">
-        <%= link_to edit_user_registration_path, class: "px-4 py-2 text-sm text-white bg-blue-500 hover:bg-blue-600 rounded-md transition" do %>
-          Edit Profile
+        <!-- Edit Profile or Follow Button -->
+        <% if current_user == @user %>
+          <%= link_to edit_user_registration_path, class: "px-4 py-2 text-sm text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-md transition font-semibold" do %>
+            Edit Profile
+          <% end %>
+        <% else %>
+          <%=
+            render partial: 'users/follow_button',
+                   locals: {
+                     user: @user,
+                     is_following: @is_following,
+                   }
+          %>
         <% end %>
       </div>
-    <% end %>
+
+      <!-- Stats -->
+      <div class="flex items-center gap-6">
+        <div>
+          <span class="font-semibold text-gray-900"><%=
+              @user.posts.count
+            %></span>
+          <span class="text-gray-500"><%=
+              'Post'.pluralize(@user.posts.count)
+            %></span>
+        </div>
+        <div id="followers_count_<%= @user.id %>">
+          <span class="font-semibold text-gray-900"><%=
+              @user.followers.count
+            %></span>
+          <span class="text-gray-500"><%=
+              'Follower'.pluralize(@user.followers.count)
+            %></span>
+        </div>
+        <div>
+          <span class="font-semibold text-gray-900"><%=
+              @user.following.count
+            %></span>
+          <span class="text-gray-500">Following</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Bio -->
@@ -37,37 +74,61 @@
     </div>
   <% end %>
 
-  <!-- Posts Count -->
-  <div class="flex items-center space-x-6 mt-4 border-t border-gray-200 pt-4">
-    <div>
-      <span class="font-semibold text-gray-900"><%= @user.posts.count %></span>
-      <span class="text-gray-500">Posts</span>
-    </div>
-    <!-- You can add followers/following later -->
-  </div>
+  <!-- Divider -->
+  <div class="border-t border-gray-200 my-6"></div>
 
-  <!-- Optional: List of user's posts -->
-  <div class="mt-6 grid grid-cols-3 gap-4">
-    <% @user.posts.each do |post| %>
-      <% if post.images.attached? %>
-        <%= link_to post_path(post) do %>
-          <%# Show first image only %>
-          <%=
-            image_tag url_for(post.images.first),
-                      alt: 'Post image',
-                      class: 'w-[200px] h-[400px]object-cover rounded-md'
-          %>
+  <!-- Posts Grid -->
+  <div>
+    <h3
+      class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4"
+    >
+      Posts
+    </h3>
+    <% if @user.posts.any? %>
+      <div class="grid grid-cols-3 gap-4">
+        <% @user.posts.order(created_at: :desc).each do |post| %>
+          <% if post.images.attached? %>
+            <%= link_to post_path(post), class: "relative group aspect-square" do %>
+              <%=
+                image_tag post.images.first,
+                          alt: 'Post image',
+                          class: 'w-full h-full object-cover rounded-md'
+              %>
+
+              <!-- Hover overlay with stats -->
+              <div
+                class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-200 rounded-md flex items-center justify-center opacity-0 group-hover:opacity-100"
+              >
+                <div class="flex items-center gap-4 text-white">
+                  <div class="flex items-center gap-1">
+                    <i class="fas fa-heart"></i>
+                    <span class="font-semibold"><%= post.likes.count %></span>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <i class="fas fa-comment"></i>
+                    <span class="font-semibold"><%=
+                        post.comments.count
+                      %></span>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% else %>
+            <%= link_to post_path(post), class: "aspect-square" do %>
+              <div
+                class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 rounded-md"
+              >
+                <i class="fas fa-image text-4xl"></i>
+              </div>
+            <% end %>
+          <% end %>
         <% end %>
-      <% else %>
-        <%= link_to post_path(post) do %>
-          <%# Optional placeholder if no image %>
-          <div
-            class="w-full h-32 bg-gray-200 flex items-center justify-center text-gray-400 rounded-md"
-          >
-            No Image
-          </div>
-        <% end %>
-      <% end %>
+      </div>
+    <% else %>
+      <div class="text-center py-12">
+        <i class="fas fa-camera text-6xl text-gray-300 mb-4"></i>
+        <p class="text-gray-500 text-lg">No posts yet</p>
+      </div>
     <% end %>
   </div>
 </div>

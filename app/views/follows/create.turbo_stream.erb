@@ -1,0 +1,10 @@
+<%= turbo_stream.replace "follow_button_#{@user.id}" do %>
+  <%= render partial: "users/follow_button", locals: { user: @user, is_following: true } %>
+<% end %>
+
+<%= turbo_stream.replace "followers_count_#{@user.id}" do %>
+  <div id="followers_count_<%= @user.id %>">
+    <span class="font-semibold text-gray-900"><%= @user.followers.count %></span>
+    <span class="text-gray-500"><%= 'Follower'.pluralize(@user.followers.count) %></span>
+  </div>
+<% end %>

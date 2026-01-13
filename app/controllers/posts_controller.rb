@@ -1,17 +1,18 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_post, only: %i[show edit update destroy]
 
-  # GET /posts or /posts.json
+  # GET /posts
   def index
-    @posts = Post.all
+    @posts = Post.includes(:user, images_attachments: :blob).order(created_at: :desc)
   end
 
-  # GET /posts/1 or /posts/1.json
+  # GET /posts/1
   def show
     @comment = @post.comments.build
   end
 
+  # GET /posts/myposts
   def myposts
     @posts = current_user.posts
   end
@@ -22,12 +23,11 @@ class PostsController < ApplicationController
   end
 
   # GET /posts/1/edit
-  def edit
-  end
+  def edit; end
 
-  # POST /posts or /posts.json
+  # POST /posts
   def create
-    @post = Post.new(post_params)
+    @post = current_user.posts.build(post_params)
 
     respond_to do |format|
       if @post.save
@@ -40,7 +40,7 @@ class PostsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /posts/1 or /posts/1.json
+  # PATCH/PUT /posts/1
   def update
     respond_to do |format|
       if @post.update(post_params)
@@ -53,7 +53,7 @@ class PostsController < ApplicationController
     end
   end
 
-  # DELETE /posts/1 or /posts/1.json
+  # DELETE /posts/1
   def destroy
     @post.destroy!
 
@@ -64,13 +64,12 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def post_params
-      params.expect(post: [ :title, :description, :keywords, :user_id, images: [] ])
-    end
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  def post_params
+    params.require(:post).permit(:title, :description, :keywords, images: [])
+  end
 end

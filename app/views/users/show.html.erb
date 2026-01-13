@@ -1,0 +1,75 @@
+<div
+  class="max-w-3xl mx-auto mt-10 p-6 bg-white border border-gray-200 rounded-lg shadow-sm"
+>
+  <!-- Avatar + Username -->
+  <div class="flex items-center space-x-6 mb-6">
+    <!-- Avatar -->
+    <div
+      class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center text-gray-400 text-3xl"
+    >
+      <%= @user.username[0].upcase if @user.username.present? %>
+    </div>
+
+    <!-- Username & Email -->
+    <div>
+      <h2 class="text-2xl font-semibold text-gray-900">
+        <%= @user.username.present? ? @user.username : 'Username' %>
+      </h2>
+      <p class="text-sm text-gray-500">
+        <%= @user.email %>
+      </p>
+    </div>
+
+    <!-- Edit Profile Button (only for current_user) -->
+    <% if current_user == @user %>
+      <div class="ml-auto">
+        <%= link_to edit_user_registration_path, class: "px-4 py-2 text-sm text-white bg-blue-500 hover:bg-blue-600 rounded-md transition" do %>
+          Edit Profile
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Bio -->
+  <% if @user.bio.present? %>
+    <div class="mb-4">
+      <p class="text-gray-700"><%= @user.bio %></p>
+    </div>
+  <% end %>
+
+  <!-- Posts Count -->
+  <div class="flex items-center space-x-6 mt-4 border-t border-gray-200 pt-4">
+    <div>
+      <span class="font-semibold text-gray-900"><%= @user.posts.count %></span>
+      <span class="text-gray-500">Posts</span>
+    </div>
+    <!-- You can add followers/following later -->
+  </div>
+
+  <!-- Optional: List of user's posts -->
+  <div class="mt-6 grid grid-cols-3 gap-4">
+    <% @user.posts.each do |post| %>
+      <% if post.images.attached? %>
+        <%= link_to post_path(post) do %>
+          <%# Show first image only %>
+          <%=
+            image_tag url_for(post.images.first),
+                      alt: 'Post image',
+                      class: 'w-[200px] h-[400px]object-cover rounded-md'
+          %>
+        <% end %>
+      <% else %>
+        <%= link_to post_path(post) do %>
+          <%# Optional placeholder if no image %>
+          <div
+            class="w-full h-32 bg-gray-200 flex items-center justify-center text-gray-400 rounded-md"
+          >
+            No Image
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<%# YT: 14304 %>

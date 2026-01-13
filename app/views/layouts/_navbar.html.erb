@@ -30,12 +30,12 @@
     <div class="flex items-center gap-4 md:gap-6">
       <% if user_signed_in? %>
         <!-- User Email (hidden on mobile) -->
-        <div class="hidden md:flex items-center">
+        <!--  <div class="hidden md:flex items-center">
           <span class="text-sm text-gray-700 font-medium truncate max-w-35">
-            <%= current_user.email %>
+            [object Object]
           </span>
         </div>
-
+-->
         <!-- Edit Account -->
         <%= link_to edit_user_registration_path, class: "text-black relative group" do %>
           <i class="fas fa-user-edit text-xl"></i>
@@ -73,6 +73,16 @@
             class="absolute bottom-full left-1/2 -translate-x-1/2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"
           >
             Logout
+          </span>
+        <% end %>
+
+        <!-- My Profile -->
+        <%= link_to user_path(current_user), class: "text-black relative group" do %>
+          <i class="fas fa-user-circle text-xl"></i>
+          <span
+            class="absolute bottom-full left-1/2 -translate-x-1/2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"
+          >
+            My Profile
           </span>
         <% end %>
       <% else %>

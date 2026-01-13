@@ -12,7 +12,8 @@ class User < ApplicationRecord
 
   has_many :comments
 
-
+validates :username, presence: true, uniqueness: true
+  validates :bio, length: { maximum: 150 }
   private
 
   def randomize_id

@@ -13,7 +13,7 @@
   </style>
 <% end %>
 
-<div class="flex items-center justify-center w-full">
+<div class="flex items-center justify-center w-full min-h-screen bg-gray-50">
   <div
     class="w-full max-w-md bg-white border border-gray-200 rounded-lg shadow-sm p-8"
   >
@@ -32,8 +32,29 @@
       </p>
     </div>
 
+    <!-- Devise Signup Form -->
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-4" }) do |f| %>
       <%= render 'devise/shared/error_messages', resource: resource %>
+
+      <!-- Username -->
+      <div>
+        <%=
+          f.text_field :username,
+                       placeholder: 'Username',
+                       class:
+                         'w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue-500'
+        %>
+      </div>
+
+      <!-- Bio -->
+      <div>
+        <%=
+          f.text_field :bio,
+                       placeholder: 'Bio',
+                       class:
+                         'w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue-500'
+        %>
+      </div>
 
       <!-- Email -->
       <div>
@@ -58,9 +79,7 @@
         %>
         <% if @minimum_password_length %>
           <p class="text-xs text-gray-500 mt-1">
-            Minimum
-            <%= @minimum_password_length %>
-            characters
+            Minimum <%= @minimum_password_length %> characters
           </p>
         <% end %>
       </div>
@@ -76,7 +95,7 @@
         %>
       </div>
 
-      <!-- Submit -->
+      <!-- Submit Button -->
       <div>
         <%=
           f.submit 'Sign up',
@@ -86,7 +105,7 @@
       </div>
     <% end %>
 
-    <!-- Links -->
+    <!-- Links: Login / Forgot Password -->
     <div class="mt-6 text-center text-sm text-gray-500">
       <%= render 'devise/shared/links' %>
     </div>

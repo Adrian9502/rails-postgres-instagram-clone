@@ -12,6 +12,8 @@ class User < ApplicationRecord
 
   has_many :comments
 
+  has_many :likes
+
 validates :username, presence: true, uniqueness: true
   validates :bio, length: { maximum: 150 }
   private

@@ -4,12 +4,13 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.includes(:user, images_attachments: :blob).order(created_at: :desc)
+    @posts = Post.includes(:user, :likes, images_attachments: :blob).order(created_at: :desc)
   end
 
   # GET /posts/1
   def show
     @comment = @post.comments.build
+    @liked_by_current_user = current_user.likes.exists?(post_id: @post.id)
   end
 
   # GET /posts/myposts

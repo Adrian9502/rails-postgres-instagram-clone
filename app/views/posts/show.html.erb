@@ -50,25 +50,13 @@
 
     <!-- Post Actions -->
     <div class="px-4 py-3 border-t border-gray-200">
-      <div class="flex items-center gap-4 mb-3">
-        <button class="hover:text-gray-500 transition">
-          <i class="far fa-heart text-2xl"></i>
-        </button>
-        <button class="hover:text-gray-500 transition">
-          <i class="far fa-comment text-2xl"></i>
-        </button>
-        <button class="hover:text-gray-500 transition">
-          <i class="far fa-paper-plane text-2xl"></i>
-        </button>
-        <button class="ml-auto hover:text-gray-500 transition">
-          <i class="far fa-bookmark text-2xl"></i>
-        </button>
-      </div>
-
-      <!-- Likes count (you can add this if you have likes) -->
-      <div class="mb-2">
-        <p class="font-semibold text-sm">0 likes</p>
-      </div>
+      <%=
+        render partial: 'posts/like_section',
+               locals: {
+                 post: @post,
+                 liked: @liked_by_current_user,
+               }
+      %>
     </div>
 
     <!-- Comments Section -->

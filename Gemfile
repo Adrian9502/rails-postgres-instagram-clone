@@ -75,5 +75,5 @@ end
 gem "image_processing", "~> 1.2"
 gem "mini_magick"
 # user auth
-gem "devise", "~> 4.9", ">= 4.9.4"
+gem "devise", "~> 5.0"
 gem "cssbundling-rails", "~> 1.4"
